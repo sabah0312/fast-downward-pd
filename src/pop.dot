@@ -1,0 +1,13 @@
+digraph bdop {
+	node [shape=box];
+Graph [compound=true];
+	subgraph popgrah {
+		rankdir="TB";
+		-1[shape=diamond];
+		-1[shape=diamond];
+	};
+	subgraph lineargrah {
+	node [margin=0 fontcolor=blue shape=none];
+		
+	};
+}
