@@ -5,10 +5,11 @@
 
 This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with  plan **deordering** and **decomposing**. The system incorporates postprocessing techniques that take a totally ordered plan and generate a partially ordered plan (POP) using:
 
-- **EOG-based deordering**
-- **Block-deordering**
-- **Block substitution**
-
+- **EOG-based deordering** [1]
+- **Block-deordering** [2-3]
+- **Block substitution** [5]
+- **Flexibility Improvement via Block-Substitution (FIBS)** [5]
+- **Concurrency Improvement via Block-Substitution (CIBS)** [4]
 
 
 ## 🔍 Overview
@@ -23,9 +24,69 @@ In classical planning, most planners output totally ordered plans, which may imp
 
 We also incorporate other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
 
-The project is structured as a modular extension of Fast Downward and can be applied to any plan outputted by Fast Downward search engines.
+## 📄 Publications and References
+This project is based on and extends work published in the following papers:
 
----
+[1] A Unified Framework for Explanation-Based Generalization of Partially Ordered and Partially Instantiated Plans
+Kambhampati, S., & Kedar, S.
+Artificial Intelligence, 67(1), 29–70, 1994
+DOI: 10.1016/0004-3702(94)90011-6
+
+[2] Block-Structured Plan Deordering
+Siddiqui, F. H., & Haslum, P.
+AI 2012: Advances in Artificial Intelligence, pp. 803–814, 2012.
+
+[3] Revisiting Block Deordering in Finite-Domain State-Variable Planning
+Sabah Binte Noor, Fazlul Hasan Siddiqui
+AI Communications, 2024
+DOI: 10.3233/AIC-230058
+
+[4] Improving Plan Execution Flexibility using Block Substitution
+Sabah Binte Noor, Fazlul Hasan Siddiqui
+Autonomous Agents and Multi-Agent Systems (AAMAS), 2025
+
+[5] Improving Execution Concurrency in Partial‑Order Plans via Block‑Substitution
+Sabah Binte Noor, Fazlul Hasan Siddiqui
+arXiv preprint, June 2024
+arXiv:2406.18615
+
+
+## ▶️ Usage
+The fast-downward-pd.py script supports various deordering methods to convert a sequential plan into a partial-order plan and to minimize the ordering and non-concurrency constraints in the plan
+# Basic Syntax
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'
+
+# Available Decomposition Methods
+*EOG-based decomposition*
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'
+
+*Block Deordering*
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'
+
+*FIBS (Flexible Intermediate Block Substitution)*
+
+# Basic FIBS decomposition
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'
+
+# FIBS with concurrency enabled (allows more concurrent actions)
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'
+
+# FIBS with plan reduction type specified
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(plan_reduction=FJ)'
+
+# Explanation of plan_reduction Options
+The plan_reduction parameter controls how aggressive the plan reduction strategy is during FIBS:
+
+Value	Description
+BJ	Block-join reduction — moderate plan merging
+FJ	Full-join reduction — more aggressive merging
+NOREDUCTION -	No plan reduction applied (baseline)
+
+# CIBS (Conditional Intermediate Block Substitution)
+
+./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'
+
+CIBS also allows plan reduction
 
 ## 📦 Repository Structure
 
@@ -43,6 +104,7 @@ The project is structured as a modular extension of Fast Downward and can be app
 ├── README.md
 └── LICENSE
 
+# Fast Downward
 
 Fast Downward is a domain-independent classical planning system.
 
