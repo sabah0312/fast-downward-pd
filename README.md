@@ -1,5 +1,49 @@
 <img src="misc/images/fast-downward.svg" width="800" alt="Fast Downward">
 
+
+# Fast Downward with Plan Deordering and Decomposing
+
+This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with  plan **deordering** and **decomposing**. The system incorporates postprocessing techniques that take a totally ordered plan and generate a partially ordered plan (POP) using:
+
+- **EOG-based deordering**
+- **Block-deordering**
+- **Block substitution**
+
+
+
+## 🔍 Overview
+
+In classical planning, most planners output totally ordered plans, which may impose unnecessary sequencing constraints. This project introduces a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary orderings. The approach supports various deordering strategies, including:
+
+- **EOG (Explanation-based Order Generalization)**: Eliminates orderings based on causal links and interference.
+- **Block Deordering**: Encapsulate coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan named Block Decomposed Partial-Order (BDPO) plan.
+- **Block Substitution**:  Substitute blocks (i.e., subplans) in a BDPO plan with action sets outside of the plan with respect to the corresponding planning problem,
+- **Flexibility Improvement via Block-Substitution (FIBS)**: Eliminate more orderings in a BDPO plan by exploiting blocks as candidate subplans to substitute via block-substitution.
+- **Concurrency Improvement via Block-Substitution (CIBS)**: Facilitate parallel execution of plan actions by incorporating non-concurrency constraints. Then, improve concurrency via block-substitution in a BDPO plan.
+
+We also incorporate other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
+
+The project is structured as a modular extension of Fast Downward and can be applied to any plan outputted by Fast Downward search engines.
+
+---
+
+## 📦 Repository Structure
+
+```bash
+.
+├── downward/                # Main Fast Downward directory (includes original code)
+├── deorder/                 # New module for partial-order planning postprocessing
+│   ├── eog_deorder.py       # EOG-based deordering logic
+│   ├── block_deorder.py     # Block deordering and block identification
+│   ├── block_substitute.py  # Block substitution algorithm
+│   └── utils.py             # Utilities for graph handling, parsing, etc.
+├── scripts/                 # Scripts for running deordering workflows
+│   └── run_deorder.py
+├── benchmarks/              # Sample domains and problems
+├── README.md
+└── LICENSE
+
+
 Fast Downward is a domain-independent classical planning system.
 
 Copyright 2003-2025 Fast Downward contributors (see below).
