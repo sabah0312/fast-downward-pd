@@ -19,6 +19,7 @@ determines the required input files:
 
 --translate: [DOMAIN] PROBLEM
 --search: TRANSLATE_OUTPUT
+--decompose: [DOMAIN] PROBLEM PLAN
 
 Arguments given before the specified input files are interpreted by the driver
 script ("driver options"). Arguments given after the input files are passed on
@@ -50,6 +51,7 @@ configuration is run."""
 EXAMPLE_PORTFOLIO = aliases.PORTFOLIOS["seq-opt-fdss-1"].relative_to(util.REPO_ROOT_DIR)
 
 EXAMPLES = [
+    ("Deorder: Transform a sequential plan into a partial-order plan by eliminating unnecessary orderings", ["--decompose", "EOG()"]),
     ("Translate and find a plan with A* + LM-Cut:",
      ["misc/tests/benchmarks/gripper/prob01.pddl",
       "--search", '"astar(lmcut())"']),
@@ -101,7 +103,7 @@ Examples:
 {_format_examples(EXAMPLES)}
 """
 
-COMPONENTS_PLUS_OVERALL = ["translate", "search", "validate", "overall"]
+COMPONENTS_PLUS_OVERALL = ["translate", "search", "validate", "overall", 'decompose']
 DEFAULT_SAS_FILE = Path("output.sas")
 
 
@@ -174,7 +176,7 @@ def _split_planner_args(parser, args):
 
     args.translate_options = []
     args.search_options = []
-    args.deorder_options = []
+    args.decompose_options = []
 
     curr_options = args.search_options
     for option in options:
@@ -182,8 +184,8 @@ def _split_planner_args(parser, args):
             curr_options = args.translate_options
         elif option == "--search-options":
             curr_options = args.search_options
-        elif option == "--deorder-options":
-            curr_options = args.deorder_options
+        elif option == "--decompose-options":
+            curr_options = args.decompose_options
         else:
             curr_options.append(option)
 
@@ -215,8 +217,8 @@ def _set_components_automatically(parser, args):
        Fast-Downward-generated file, run search only.
     2. Otherwise, run all components."""
     for key in args.planner_args:
-        if key.strip() == "--deorder":
-            args.components = ["custom_translate", "deorder"]
+        if key.strip() == "--decompose":
+            args.components = ["custom_translate", "decompose"]
             return
 
     if len(args.filenames) == 1 and _looks_like_search_input(args.filenames[0]):
@@ -241,8 +243,8 @@ def _set_components_and_inputs(parser, args):
         args.components.append("translate")
     if args.search or args.run_all:
         args.components.append("search")
-    if args.deorder:
-        args.components.append("deorder")
+    if args.decompose:
+        args.components.append("decompose")
 
     if not args.components:
         _set_components_automatically(parser, args)
@@ -283,8 +285,8 @@ def _set_components_and_inputs(parser, args):
     else:
         assert False, first
 
-    if "deorder" in args.components:
-        args.deorder_inputs = _get_pddl_input_files(args, parser, "deorder")
+    if "decompose" in args.components:
+        args.decompose_inputs = _get_pddl_input_files(args, parser, "decompose")
 
     if "validate" in args.components:
         args.validate_inputs = _get_pddl_input_files(args, parser, "validate")
@@ -406,8 +408,8 @@ def parse_args():
         "--search", action="store_true",
         help="run search component")
     components.add_argument(
-        "--deorder", action="store_true",
-        help="run deorder component")
+        "--decompose", action="store_true",
+        help="run decompose component")
 
     limits = parser.add_argument_group(
         title="time and memory limits", description=LIMITS_HELP)

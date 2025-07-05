@@ -1,0 +1,4 @@
+builds/
+problem.txt
+src/.idea/vcs.xml
+src/cmake-build-debug

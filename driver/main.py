@@ -43,8 +43,8 @@ def main():
                 args.sas_file.unlink()
         elif component == "validate":
             (exitcode, continue_execution) = run_components.run_validate(args)
-        elif component == "deorder":
-            (exitcode, continue_execution) = run_components.run_deorder(args)
+        elif component == "decompose":
+            (exitcode, continue_execution) = run_components.run_decompose(args)
         elif component == "custom_translate":
             (exitcode, continue_execution) = run_components.run_custom_translate(args)
         else:

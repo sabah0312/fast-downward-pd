@@ -34,7 +34,7 @@ int main(int argc, const char **argv) {
         bool deordering_task = false;
         for (int i = 1; i < argc; ++i) {
             string arg = argv[i];
-            if (arg == "--deorder") {
+            if (arg == "--decompose") {
                 deordering_task = true;
                 break;
             }

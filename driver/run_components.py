@@ -169,23 +169,23 @@ def run_validate(args):
         return (0, True)
 
 
-def run_deorder(args):
+def run_decompose(args):
     logging.info("Running search (%s)." % args.build)
     time_limit = limits.get_time_limit(
         args.search_time_limit, args.overall_time_limit)
     memory_limit = limits.get_memory_limit(
         args.search_memory_limit, args.overall_memory_limit)
     executable = get_executable(args.build, REL_SEARCH_PATH)
-    args.deorder_options = args.search_options
-    if not args.deorder_options:
+    args.decompose_options = args.search_options
+    if not args.decompose_options:
         returncodes.exit_with_driver_input_error(
-            "deorder needs deorder options")
-    # if "--help" not in args.deorder_options:
-    #     args.deorder_options.extend(["--internal-plan-file", args.plan_file])
+            "decompose needs decompose options")
+    # if "--help" not in args.decompose_options:
+    #     args.decompose_options.extend(["--internal-plan-file", args.plan_file])
     try:
         call.check_call(
             "search",
-            [executable] + args.deorder_inputs + args.search_options,
+            [executable] + args.decompose_inputs + args.search_options,
             stdin=args.search_input,
             time_limit=time_limit,
             memory_limit=memory_limit)

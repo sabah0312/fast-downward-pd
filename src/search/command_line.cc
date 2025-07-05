@@ -185,9 +185,9 @@ static shared_ptr<SearchAlgorithm> parse_cmd_line_aux(const vector<string> &args
     for (size_t i = 0; i < args.size(); ++i) {
         const string &arg = args[i];
         bool is_last = (i == args.size() - 1);
-        if (arg == "--deorder") {
+        if (arg == "--decompose") {
             if (deorder_algorithm)
-                input_error("multiple --deprder arguments defined");
+                input_error("multiple --decompose arguments defined");
             if (is_last)
                 input_error("missing argument after --decompose");
             ++i;
