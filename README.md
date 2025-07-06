@@ -1,13 +1,14 @@
 
 # fast-downward-pd
 
-This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with a module (`decompose`) that facilitates various plan deordering and decomposition strategies.
+This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with a module `decompose` that facilitates various plan deordering and decomposition strategies.
 
 The **decompose** module incorporates postprocessing techniques that take a total-order (sequential) plan and generate a partial-order plan (POP) using **EOG-based deordering** `(Kambhampati and Kedar, 1994)`. Then further minimize the orderings of the POP using **Block-deordering** `(Siddiqui and Haslum, 2012; Noor and Siddiqui, 2024a)`. *Block Deordering* encapsulates coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan, known as the *Block Decomposed Partial-Order (BDPO)* plan.
 
-In this `decompose` module, we include the concept **block-substitution*** (Noor and Siddiqui, 2024b), which facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan for the corresponding planning problem. We also incorporate *non-concurrency constraints* in POPs to facilitate the parallel execution of actions within a plan.  
+In this `decompose` module, we include the concept **block-substitution** `(Noor and Siddiqui, 2024b)`, which facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan for the corresponding planning problem. We also incorporate *non-concurrency constraints* in POPs to facilitate the parallel execution of actions within a plan.  
 
-This module includes two methods **FIBS (Flexibility Improvement via Block-Substitution)** and **CIBS (Concurrency Improvement via Block-Substitutio)** that uses *block-substitution* to improve flexibility and concurrency of a BDPO plan, respectively.
+This module includes two methods **FIBS (Flexibility Improvement via Block-Substitution)** `(Noor and Siddiqui, 2024b)` and **CIBS (Concurrency Improvement via Block-Substitutio)** `(Noor and Siddiqui, 2025)` that uses *block-substitution* to improve flexibility and concurrency of a BDPO plan, respectively.
+
 We also include other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
 
 ## 🔍 Overview
