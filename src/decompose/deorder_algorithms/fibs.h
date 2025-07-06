@@ -15,6 +15,7 @@
 using namespace block_replace;
 
 class FIBS: public BlockDeorder {
+
     PlanReduction planReduction;
     BlockReplace blockReplace;
 
@@ -29,7 +30,8 @@ class FIBS: public BlockDeorder {
     void write_fibs_result();
 
 public:
-    FIBS(bool only_replace_block, bool compromise_flex, bool concurrency, plan_reduction_type type);
+    FIBS( bool only_replace_block, bool compromise_flex, bool concurrency,
+         plan_reduction_type type);
 
     void run() override {
         run_fibs();

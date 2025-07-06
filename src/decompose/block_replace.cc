@@ -530,8 +530,7 @@ namespace block_replace {
         write_problem(s, goals_proxy, vector<int>(0));
         ostringstream com;
         string problem_path = "problem.txt";
-        com<< "(ulimit -t 60; python3 /media/sabah/Velociraptor/NewTools2025/fast-downward-pd-25.07.1/fast-downward-pd.py --alias seq-sat-lama-2011 ";
-        com << domain_file_path << " " << problem_path << ")";
+        com<< "(ulimit -t 60; python3 " << planner_path << " " << domain_file_path << " " << problem_path << ")";
         system(com.str().c_str());
 
         vector<string> planfiles;
@@ -640,8 +639,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
     write_problem(subtask_initial_state, subtask_goals, conflicted_vars);
     ostringstream com;
     string problem_path = "problem.txt";
-    com << "(ulimit -t 60; python3 /media/sabah/Velociraptor/NewTools2025/fast-downward-pd-25.07.1/fast-downward-pd.py --alias seq-sat-lama-2011 ";
-    com << domain_file_path << " " << problem_path << ")";
+    com << "(ulimit -t 60; python3 " << planner_path << " " << domain_file_path << " " << problem_path << ")";
     system(com.str().c_str());
 
     vector<string> planfiles;

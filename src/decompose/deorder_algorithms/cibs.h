@@ -15,6 +15,7 @@
 using namespace block_replace;
 
 class CIBS : public BlockDeorder {
+
     PlanReduction planReduction;
     BlockReplace blockReplace;
 

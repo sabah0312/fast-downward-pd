@@ -23,6 +23,7 @@ namespace plugin_FIBS {
                     "plan_reduction",
                     "Plan reduction algorithm",
                     "NoReduction");
+//            add_option<string>("planner", "Path for planner to generate plans for subtasks", "./fast-downward-pd.py --alias seq-sat-lama-2011");
             add_option<bool>("only_replace_block", "Substitute only compound block", "false");
             add_option<bool>("compromise_flex", "Compromise flex for plan quality", "false");
             add_option<bool>("concurrency", "Facilitate and improve concurrency", "false");

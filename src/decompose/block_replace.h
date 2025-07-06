@@ -19,7 +19,6 @@ namespace domain_transition_graph {
 namespace block_replace {
 
     class BlockReplace {
-
         vector<string> predicates;
         int cost_compromise = 0;
         BlockDeorder block_deorder;
@@ -31,6 +30,7 @@ namespace block_replace {
         StateRegistry state_registry;
         std::vector<std::unique_ptr<domain_transition_graph::DomainTransitionGraph>> transition_graphs;
 
+        string planner_path = "./fast-downward-pd.py --alias seq-sat-lama-2011";
 
         string domain_file_path, problem_file_path;
         bool print_details = false;
@@ -66,7 +66,8 @@ namespace block_replace {
 
     public:
         BlockDeorderPlan bdpop;
-        BlockReplace(TaskProxy taskProxy, bool only_replace_block, bool compromise_flex, bool concurrency);
+        BlockReplace(TaskProxy taskProxy, bool only_replace_block, bool compromise_flex,
+                     bool concurrency);
 
         void set_files_path(string domain_path, string problem_path);
 
