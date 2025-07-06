@@ -56,28 +56,27 @@ arXiv:2406.18615
 
 ## ▶️ Usage
 The fast-downward-pd.py script supports various deordering methods to convert a sequential plan into a partial-order plan and to minimize the ordering and non-concurrency constraints in the plan
-# Basic Syntax
+### Basic Syntax
 ./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'
 
-# Available Decomposition Methods
-*EOG-based decomposition*
-./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'
+### EOG (Explanation-based Order Generalization)
+`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'`
 
-*Block Deordering*
-./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'
+### Block Deordering
+`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'`
 
-*FIBS (Flexible Intermediate Block Substitution)*
+### FIBS (Flexible Intermediate Block Substitution)*
 
-# Basic FIBS decomposition
-./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'
+**Basic FIBS decomposition**
+`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'`
 
-# FIBS with concurrency enabled (allows more concurrent actions)
+### FIBS with concurrency enabled (allows more concurrent actions)
 ./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'
 
-# FIBS with plan reduction type specified
+### FIBS with plan reduction type specified
 ./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(plan_reduction=FJ)'
 
-# Explanation of plan_reduction Options
+### Explanation of plan_reduction Options
 The plan_reduction parameter controls how aggressive the plan reduction strategy is during FIBS:
 
 Value	Description
@@ -85,7 +84,7 @@ BJ	Block-join reduction — moderate plan merging
 FJ	Full-join reduction — more aggressive merging
 NOREDUCTION -	No plan reduction applied (baseline)
 
-# CIBS (Conditional Intermediate Block Substitution)
+### CIBS (Conditional Intermediate Block Substitution)
 
 ./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'
 
