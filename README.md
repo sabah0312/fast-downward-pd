@@ -3,26 +3,30 @@
 
 # Fast Downward with Plan Deordering and Decomposing
 
-This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with  plan **deordering** and **decomposing**. The system incorporates postprocessing techniques that take a totally ordered plan and generate a partially ordered plan (POP) using:
+This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary constraints.
 
-- **EOG-based deordering** [1]
-- **Block-deordering** [2-3]
-- **Block substitution** [5]
+The **decompose** module incorporates postprocessing techniques that take a total-order (sequential) plan and generate a partial-order plan (POP) using **EOG-based deordering** [1]. Then further minimize the orderings of the POP using **Block-deordering** [2-3].
+
+We also incorporate a new concept, block-substitution, that facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan. Which is then used in **Flexibility Improvement via Block-Substitution (FIBS)* to minimize ordering constraints.
 - **Flexibility Improvement via Block-Substitution (FIBS)** [5]
 - **Concurrency Improvement via Block-Substitution (CIBS)** [4]
-
+- 
+We also incorporate other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
 
 ## 🔍 Overview
 
-In classical planning, most planners output totally ordered plans, which may impose unnecessary sequencing constraints. This project introduces a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary orderings. The approach supports various deordering strategies, including:
+In classical planning, most planners output total-order (sequential) plans. This project introduces a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary orderings. The approach supports various deordering/reordering strategies, including *EOG (Explanation-based Order Generalization)* and *Block Deordering*.
 
 - **EOG (Explanation-based Order Generalization)**: Eliminates orderings based on causal links and interference.
-- **Block Deordering**: Encapsulate coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan named Block Decomposed Partial-Order (BDPO) plan.
+- **Block Deordering**: Encapsulate coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan, named Block Decomposed Partial-Order (BDPO) plan.
+
+This project incorporates a new concept, block-substitution, that facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan. Which is then used in **Flexibility Improvement via Block-Substitution (FIBS)* to minimize ordering constraints. This proje
+task.
 - **Block Substitution**:  Substitute blocks (i.e., subplans) in a BDPO plan with action sets outside of the plan with respect to the corresponding planning problem,
 - **Flexibility Improvement via Block-Substitution (FIBS)**: Eliminate more orderings in a BDPO plan by exploiting blocks as candidate subplans to substitute via block-substitution.
 - **Concurrency Improvement via Block-Substitution (CIBS)**: Facilitate parallel execution of plan actions by incorporating non-concurrency constraints. Then, improve concurrency via block-substitution in a BDPO plan.
 
-We also incorporate other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
+
 
 ## 📄 Publications and References
 This project is based on and extends work published in the following papers:
@@ -40,7 +44,6 @@ AI 2012: Advances in Artificial Intelligence, pp. 803–814, 2012.
 Sabah Binte Noor, Fazlul Hasan Siddiqui
 AI Communications, 2024
 DOI: 10.3233/AIC-230058
-
 [4] Improving Plan Execution Flexibility using Block Substitution
 Sabah Binte Noor, Fazlul Hasan Siddiqui
 Autonomous Agents and Multi-Agent Systems (AAMAS), 2025
