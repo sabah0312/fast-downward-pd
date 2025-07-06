@@ -87,6 +87,17 @@ This creates the default build `release` in the directory `builds`. For informat
 `./build.py --help`. 
 For more information, see [BUILD.md](BUILD.md).
 
+## 📚 Class Hierarchy
+
+```bash
+DeorderAlgorithm (deorder_algorithm.h)
+└── EOG (eog.h)
+    └── BlockDeorder (block_deorder.h)
+        ├── CIBS (cibs.h)
+        └── FIBS (fibs.h)
+```
+`src/decompose/` directory contains the core source files for our `decompose` module.
+
 ## 📄 Publications and References
 This project is based on and extends work published in the following papers:
 
