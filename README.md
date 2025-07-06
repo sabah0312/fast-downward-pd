@@ -91,28 +91,17 @@ For more information, see [BUILD.md](BUILD.md).
 ## 📄 Publications and References
 This project is based on and extends work published in the following papers:
 
-[1] A Unified Framework for Explanation-Based Generalization of Partially Ordered and Partially Instantiated Plans,
-Kambhampati, S., & Kedar, S.,
-Artificial Intelligence, 67(1), 29–70, 1994,
-DOI: 10.1016/0004-3702(94)90011-6
 
-[2] Block-Structured Plan Deordering,
-Siddiqui, F. H., & Haslum, P.,
-AI 2012: Advances in Artificial Intelligence, pp. 803–814, 2012.
+Noor, S. B., & Siddiqui, F. H. (2025). Improving plan execution flexibility using block substitution. In Proceedings of the International Conference on Autonomous Agents and Multi-Agent Systems (AAMAS).
 
-[3] Revisiting Block Deordering in Finite-Domain State-Variable Planning,
-Sabah Binte Noor, Fazlul Hasan Siddiqui,
-AI Communications, 2024,
-DOI: 10.3233/AIC-230058
+Noor, S. B., & Siddiqui, F. H. (2024a). Improving execution concurrency in partial‑order plans via block‑substitution. arXiv preprint, arXiv:2406.18615.
 
-[4] Improving Plan Execution Flexibility using Block Substitution,
-Sabah Binte Noor, Fazlul Hasan Siddiqui,
-Autonomous Agents and Multi-Agent Systems (AAMAS), 2025.
+Noor, S. B., & Siddiqui, F. H. (2024b). Revisiting block deordering in finite-domain state-variable planning. AI Communications. https://doi.org/10.3233/AIC-230058
 
-[5] Improving Execution Concurrency in Partial‑Order Plans via Block‑Substitution,
-Sabah Binte Noor, Fazlul Hasan Siddiqui,
-arXiv preprint, June 2024,
-arXiv:2406.18615
+Siddiqui, F. H., & Haslum, P. (2012). Block-structured plan deordering. In AI 2012: Advances in Artificial Intelligence (pp. 803–814).
+
+Kambhampati, S., & Kedar, S. (1994). A unified framework for explanation-based generalization of partially ordered and partially instantiated plans. Artificial Intelligence, 67(1), 29–70. https://doi.org/10.1016/0004-3702(94)90011-6
+
 
 # Fast Downward
 
