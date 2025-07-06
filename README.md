@@ -84,8 +84,7 @@ To build, from the top-level directory, run:
 ```
 
 This creates the default build `release` in the directory `builds`. For information on alternative builds (e.g. `debug`) and further options, call
-`./build.py --help`. [Our website](https://www.fast-downward.org/ForDevelopers/CMake) has details on how to set up development builds.
-
+`./build.py --help`. 
 For more information, see [BUILD.md](BUILD.md).
 
 ## 📄 Publications and References
