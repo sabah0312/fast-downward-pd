@@ -1,85 +1,63 @@
-<img src="misc/images/fast-downward.svg" width="800" alt="Fast Downward">
 
+# fast-downward-pd
 
-# Fast Downward with Plan Deordering and Decomposing
+This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with a module (`decompose`) that facilitates various plan deordering and decomposition strategies.
 
-This repository extends the [Fast Downward](https://github.com/aibasel/downward) planning system with a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary constraints.
+The **decompose** module incorporates postprocessing techniques that take a total-order (sequential) plan and generate a partial-order plan (POP) using **EOG-based deordering** `(Kambhampati and Kedar, 1994)`. Then further minimize the orderings of the POP using **Block-deordering** `(Siddiqui and Haslum, 2012; Noor and Siddiqui, 2024a)`. *Block Deordering* encapsulates coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan, known as the *Block Decomposed Partial-Order (BDPO)* plan.
 
-The **decompose** module incorporates postprocessing techniques that take a total-order (sequential) plan and generate a partial-order plan (POP) using **EOG-based deordering** [1]. Then further minimize the orderings of the POP using **Block-deordering** [2-3].
+In this `decompose` module, we include the concept **block-substitution*** (Noor and Siddiqui, 2024b), which facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan for the corresponding planning problem. We also incorporate *non-concurrency constraints* in POPs to facilitate the parallel execution of actions within a plan.  
 
-We also incorporate a new concept, block-substitution, that facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan. Which is then used in **Flexibility Improvement via Block-Substitution (FIBS)* to minimize ordering constraints.
-- **Flexibility Improvement via Block-Substitution (FIBS)** [5]
-- **Concurrency Improvement via Block-Substitution (CIBS)** [4]
-- 
-We also incorporate other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
+This module includes two methods **FIBS (Flexibility Improvement via Block-Substitution)** and **CIBS (Concurrency Improvement via Block-Substitutio)** that uses *block-substitution* to improve flexibility and concurrency of a BDPO plan, respectively.
+We also include other features such as **Plan Reduction**, which eliminates redundant actions from a plan using Forward Justification or Backward Justification.
 
 ## 🔍 Overview
 
-In classical planning, most planners output total-order (sequential) plans. This project introduces a module (`decompose`) that transforms such plans into partial-order plans by eliminating unnecessary orderings. The approach supports various deordering/reordering strategies, including *EOG (Explanation-based Order Generalization)* and *Block Deordering*.
-
-- **EOG (Explanation-based Order Generalization)**: Eliminates orderings based on causal links and interference.
-- **Block Deordering**: Encapsulate coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a hierarchically structured plan, named Block Decomposed Partial-Order (BDPO) plan.
-
-This project incorporates a new concept, block-substitution, that facilitates substituting subplans (i.e., blocks) in a BDPO plan with action sets outside of the plan. Which is then used in **Flexibility Improvement via Block-Substitution (FIBS)* to minimize ordering constraints. This proje
-task.
+- **EOG (Explanation-based Order Generalization)**: Transforms sequential plans into partial-order plans by eliminating unnecessary orderings.
+- **Block Deordering**: Encapsulate coherent action sets (i.e., subplans) into blocks to eliminate more orderings in a partial-order plan, resulting in a Block Decomposed Partial-Order (BDPO) plan.
 - **Block Substitution**:  Substitute blocks (i.e., subplans) in a BDPO plan with action sets outside of the plan with respect to the corresponding planning problem,
-- **Flexibility Improvement via Block-Substitution (FIBS)**: Eliminate more orderings in a BDPO plan by exploiting blocks as candidate subplans to substitute via block-substitution.
-- **Concurrency Improvement via Block-Substitution (CIBS)**: Facilitate parallel execution of plan actions by incorporating non-concurrency constraints. Then, improve concurrency via block-substitution in a BDPO plan.
-
-
-
-## 📄 Publications and References
-This project is based on and extends work published in the following papers:
-
-[1] A Unified Framework for Explanation-Based Generalization of Partially Ordered and Partially Instantiated Plans
-Kambhampati, S., & Kedar, S.
-Artificial Intelligence, 67(1), 29–70, 1994
-DOI: 10.1016/0004-3702(94)90011-6
-
-[2] Block-Structured Plan Deordering
-Siddiqui, F. H., & Haslum, P.
-AI 2012: Advances in Artificial Intelligence, pp. 803–814, 2012.
-
-[3] Revisiting Block Deordering in Finite-Domain State-Variable Planning
-Sabah Binte Noor, Fazlul Hasan Siddiqui
-AI Communications, 2024
-DOI: 10.3233/AIC-230058
-[4] Improving Plan Execution Flexibility using Block Substitution
-Sabah Binte Noor, Fazlul Hasan Siddiqui
-Autonomous Agents and Multi-Agent Systems (AAMAS), 2025
-
-[5] Improving Execution Concurrency in Partial‑Order Plans via Block‑Substitution
-Sabah Binte Noor, Fazlul Hasan Siddiqui
-arXiv preprint, June 2024
-arXiv:2406.18615
+- **Flexibility Improvement via Block-Substitution (FIBS)**: Eliminate orderings in a BDPO plan by exploiting blocks as candidate subplans to substitute via block-substitution.
+- **Concurrency Improvement via Block-Substitution (CIBS)**: Facilitate `concurrency` (parallel execution of actions) by incorporating non-concurrency constraints, and  improve concurrency via block-substitution in a BDPO plan.
+- **Plan Reduction**: eliminates redundant actions from a plan using Forward Justification or Backward Justification.
 
 
 ## ▶️ Usage
 The fast-downward-pd.py script supports various deordering methods to convert a sequential plan into a partial-order plan and to minimize the ordering and non-concurrency constraints in the plan
-### Basic Syntax
-`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'`
+#### Basic Syntax
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'
+```
 
-### EOG (Explanation-based Order Generalization)
-`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'`
+#### EOG (Explanation-based Order Generalization)
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'
+```
 
-### Block Deordering
-`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'`
+#### Block Deordering
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'
+```
 
-### FIBS (Flexibility Improvement via Block-Substitution)*
+#### FIBS (Flexibility Improvement via Block-Substitution)
 
 *Basic FIBS decomposition*
 
-`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'`
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'
+```
 
 *FIBS with concurrency enabled (allows parallel execution of actions by incorporating non-concurrency constraints)* 
 
-`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'`
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'
+```
 
 *FIBS with plan reduction*
 
+```bash
 ./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(plan_reduction=FJ)'
+```
 
-# Explanation of plan_reduction Options
+#### Explanation of plan_reduction Options
 The plan_reduction parameter specifies which plan reduction algorithm will be used:
 
 |Value      |	Description           |
@@ -88,12 +66,52 @@ The plan_reduction parameter specifies which plan reduction algorithm will be us
 |FJ         |	Forward Justification |
 |NOREDUCTION| No plan reduction     |
 
-### CIBS (Concurrency Improvement via Block-Substitution)
+#### CIBS (Concurrency Improvement via Block-Substitution)
 
-`./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'`
+```bash
+./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'
+```
 
 CIBS also allows plan reduction
 
+## Compilation
+
+To build, from the top-level directory, run:
+
+```bash
+./build.py
+```
+
+This creates the default build `release` in the directory `builds`. For information on alternative builds (e.g. `debug`) and further options, call
+`./build.py --help`. [Our website](https://www.fast-downward.org/ForDevelopers/CMake) has details on how to set up development builds.
+
+For more information, see [BUILD.md](BUILD.md).
+
+## 📄 Publications and References
+This project is based on and extends work published in the following papers:
+
+[1] A Unified Framework for Explanation-Based Generalization of Partially Ordered and Partially Instantiated Plans,
+Kambhampati, S., & Kedar, S.,
+Artificial Intelligence, 67(1), 29–70, 1994,
+DOI: 10.1016/0004-3702(94)90011-6
+
+[2] Block-Structured Plan Deordering,
+Siddiqui, F. H., & Haslum, P.,
+AI 2012: Advances in Artificial Intelligence, pp. 803–814, 2012.
+
+[3] Revisiting Block Deordering in Finite-Domain State-Variable Planning,
+Sabah Binte Noor, Fazlul Hasan Siddiqui,
+AI Communications, 2024,
+DOI: 10.3233/AIC-230058
+
+[4] Improving Plan Execution Flexibility using Block Substitution,
+Sabah Binte Noor, Fazlul Hasan Siddiqui,
+Autonomous Agents and Multi-Agent Systems (AAMAS), 2025.
+
+[5] Improving Execution Concurrency in Partial‑Order Plans via Block‑Substitution,
+Sabah Binte Noor, Fazlul Hasan Siddiqui,
+arXiv preprint, June 2024,
+arXiv:2406.18615
 
 # Fast Downward
 
@@ -226,4 +244,4 @@ General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 ```
-# fast-downward-pd
+
