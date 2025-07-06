@@ -57,7 +57,7 @@ arXiv:2406.18615
 ## ▶️ Usage
 The fast-downward-pd.py script supports various deordering methods to convert a sequential plan into a partial-order plan and to minimize the ordering and non-concurrency constraints in the plan
 ### Basic Syntax
-./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'
+`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose '<method>'`
 
 ### EOG (Explanation-based Order Generalization)
 `./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'eog()'`
@@ -65,46 +65,35 @@ The fast-downward-pd.py script supports various deordering methods to convert a 
 ### Block Deordering
 `./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'block_deorder()'`
 
-### FIBS (Flexible Intermediate Block Substitution)*
+### FIBS (Flexibility Improvement via Block-Substitution)*
 
-**Basic FIBS decomposition**
+*Basic FIBS decomposition*
+
 `./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs()'`
 
-### FIBS with concurrency enabled (allows more concurrent actions)
-./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'
+*FIBS with concurrency enabled (allows parallel execution of actions by incorporating non-concurrency constraints)* 
 
-### FIBS with plan reduction type specified
+`./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(concurrency=true)'`
+
+*FIBS with plan reduction*
+
 ./fast-downward-pd.py <domain.pddl> <problem.pddl> <sequential_plan> --decompose 'fibs(plan_reduction=FJ)'
 
-### Explanation of plan_reduction Options
-The plan_reduction parameter controls how aggressive the plan reduction strategy is during FIBS:
+# Explanation of plan_reduction Options
+The plan_reduction parameter specifies which plan reduction algorithm will be used:
 
-Value	Description
-BJ	Block-join reduction — moderate plan merging
-FJ	Full-join reduction — more aggressive merging
-NOREDUCTION -	No plan reduction applied (baseline)
+|Value      |	Description           |
+|-----------|-----------------------|
+|BJ         |	Backward Justification|
+|FJ         |	Forward Justification |
+|NOREDUCTION| No plan reduction     |
 
-### CIBS (Conditional Intermediate Block Substitution)
+### CIBS (Concurrency Improvement via Block-Substitution)
 
-./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'
+`./fast-downward-pd.py domain.pddl instance-1.pddl sas_plan.1.lama --decompose 'cibs()'`
 
 CIBS also allows plan reduction
 
-## 📦 Repository Structure
-
-```bash
-.
-├── downward/                # Main Fast Downward directory (includes original code)
-├── deorder/                 # New module for partial-order planning postprocessing
-│   ├── eog_deorder.py       # EOG-based deordering logic
-│   ├── block_deorder.py     # Block deordering and block identification
-│   ├── block_substitute.py  # Block substitution algorithm
-│   └── utils.py             # Utilities for graph handling, parsing, etc.
-├── scripts/                 # Scripts for running deordering workflows
-│   └── run_deorder.py
-├── benchmarks/              # Sample domains and problems
-├── README.md
-└── LICENSE
 
 # Fast Downward
 
