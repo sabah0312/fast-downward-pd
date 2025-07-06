@@ -17,8 +17,6 @@ enum plan_reduction_type  { BJ, FJ, NOREDUCTION};
 class PlanReduction {
     BlockDeorderPlan bdpop;
 
-    plan_reduction_type type;
-
     bool is_redundant_by_backward_justification(int b_x);
 
     void get_dependent_blocks(int b_x, vector<int> *dependent_blocks, vector<int> *visited);
@@ -31,6 +29,7 @@ class PlanReduction {
 
 
 public:
+    plan_reduction_type type;
 
     PlanReduction(plan_reduction_type t): type(t){};
 

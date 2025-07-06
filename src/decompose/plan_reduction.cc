@@ -112,14 +112,15 @@ void PlanReduction :: remove_redundant_by_forward_justification(){
 }
 
 BlockDeorderPlan PlanReduction::start(BlockDeorderPlan blockDeorderPlan) {
+    bdpop = blockDeorderPlan;
     if (type != NOREDUCTION) {
-        bdpop = blockDeorderPlan;
         if (type == FJ)
             remove_redundant_by_forward_justification();
         else
             remove_redundant_block_by_backward_justification();
-        return bdpop;
+
     }
+    return bdpop;
 }
 
 void PlanReduction:: set_bdpo_plan (BlockDeorderPlan blockDeorderPlan){

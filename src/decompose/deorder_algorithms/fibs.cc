@@ -40,7 +40,8 @@ void FIBS::run_fibs() {
 }
 
 void FIBS::plan_reduction() {
-   blockDeorderPlan = planReduction.start(blockDeorderPlan);
+    if (planReduction.type != NOREDUCTION)
+        blockDeorderPlan = planReduction.start(blockDeorderPlan);
 }
 
 

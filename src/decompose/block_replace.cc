@@ -77,9 +77,10 @@ namespace block_replace {
         write_log_file( "check B:" + to_string(b_x) + "-> B:" + to_string(b_y) + " --- ");
         write_log_file("\tcheck " + to_string(b_x) +"\n");
         vector<int> conflicted_variables = bdpop.is_concurrent(b_x, b_y);
-        write_log_file("hello\n");
+
         if(conflicted_variables.empty())
             return true;
+
         set_initial_state_and_goals_for_subtask(b_x, false);
         int extended_bx = extend_block(b_x,b_y,conflicted_variables);
         write_log_file( "extended block:" + to_string(extended_bx) + "\n");
@@ -97,6 +98,7 @@ namespace block_replace {
 /// \return
     int BlockReplace :: extend_block(int b_x, int b_y, vector<int> conflicted_variables){
 
+
         set_initial_state_and_goals_for_subtask(b_x, false);
         Block* block_x = bdpop.get_block(b_x);
         vector<int> extensions;
@@ -108,7 +110,7 @@ namespace block_replace {
             if(bdpop.blocks_orderings.has_any_ordering(p, b_y)) continue;
             if(!check_extension_candidency(p, b_x, conflicted_variables, true)) continue;
             extensions.push_back(p);
-            write_log_file( to_string(p) + " ");
+//            write_log_file( to_string(p) + " ");
 
         }
         for(int s: successors){
@@ -116,11 +118,11 @@ namespace block_replace {
             if(bdpop.blocks_orderings.has_any_ordering( b_y, s)) continue;
             if(!check_extension_candidency(b_x, s, conflicted_variables, false)) continue;
             extensions.push_back(s);
-            write_log_file( to_string(s) + " ");
+//            write_log_file( to_string(s) + " ");
         }
         if(extensions.empty())
             return b_x;
-        write_log_file("\n");
+//        write_log_file("\n");
         extensions.push_back(b_x);
         int new_block_id = bdpop.create_compound_block(extensions);
         for(int b: extensions){
@@ -319,7 +321,7 @@ namespace block_replace {
 
  ///This function attempts to remove ordering constraints between blocks b_x and b_y by substituting b_y
     bool BlockReplace::remove_ordering_constraints_by_replacing_block(int b_x, int b_y) {
-        write_log_file("\t hello try replacing by block " + to_string(b_x) + " " + to_string(b_y) + "\n");
+        write_log_file("\ttry replacing by block " + to_string(b_x) + " " + to_string(b_y) + "\n");
 
         map<int, int> connected = bdpop.get_connection_map(b_y);
 
@@ -377,7 +379,7 @@ namespace block_replace {
                        ">, ";
             }
             str += "\n";
-            write_log_file(str);
+//            write_log_file(str);
         }
 
         vector<OperatorID> applicable_ops;
@@ -805,7 +807,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
             block_deorder.reset_plan(plan);
             BlockDeorderPlan *newDplan = &block_deorder.blockDeorderPlan;
             int goal_id = newDplan->get_new_block_id();
-            write_log_file(to_string(goal_id));
+//            write_log_file(to_string(goal_id));
             Block goal_block(goal_id, OperatorID(-1));
             for (FactProxy f: goals) {
                 goal_block.preconditions.push_back(f);
@@ -815,7 +817,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
 
 
             block_deorder.do_step_deordering();
-            write_log_file("\tcompound plan");
+//            write_log_file("\tcompound plan");
 
             Block block(block_id, vector<int>(0), false);
             Block *parent = newPlan.insert(block);
@@ -1263,7 +1265,7 @@ bool BlockReplace :: replace_block_by_operators_for_nonconcurrency(int b_x, int 
         map<int, int> connected_map = bdpop.get_connection_map(b_x);
         map<int, bool> visited_map = bdpop.get_boolean_map();
 
-        write_log_file("\t hello try replacing by block \n");
+        write_log_file("\ttry replacing by block \n");
         ///compute initial State
         while (!queue.empty()) {
             int itr = 0;
@@ -1286,7 +1288,7 @@ bool BlockReplace :: replace_block_by_operators_for_nonconcurrency(int b_x, int 
             if (is_in_vector(i, &exclude)) continue;
             if ((!allow_parallel || connected_map[i] != 0) && connected_map[i] != 1) continue;
 
-            write_log_file(to_string(i) + " ");
+//            write_log_file(to_string(i) + " ");
             s = get_successor(s, i);
 
             for (int b: bdpop.get_block(i)->successors) {

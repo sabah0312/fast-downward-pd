@@ -59,6 +59,8 @@ create_fast_downward_library(
             deorder_algorithm
             deorder_algorithms/eog
             deorder_algorithms/block_deorder
+            deorder_algorithms/fibs
+            deorder_algorithms/cibs
             block_replace
             plan_reduction
             cluster_causal_graph
@@ -74,6 +76,7 @@ create_fast_downward_library(
         deorder_algorithms/plugin_eog.cc
         deorder_algorithms/plugin_block_deorder.cc
         deorder_algorithms/plugin_fibs.cc
+        deorder_algorithms/plugin_cibs.cc
 )
 
 

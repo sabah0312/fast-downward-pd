@@ -2235,7 +2235,6 @@ void BlockDeorderPlan :: find_concurrent_actions(){
 
 
 vector<int> BlockDeorderPlan :: is_concurrent(int b_x, int b_y){
-    write_log_file("hello\n");
     vector<int> xblocks, yblocks;
     xblocks = get_primary_blocks(b_x);
     yblocks = get_primary_blocks(b_y);

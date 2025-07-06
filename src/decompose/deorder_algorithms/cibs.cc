@@ -21,20 +21,27 @@ void CIBS::run_cibs() {
 
     set_plan(original_plan);
     blockDeorderPlan.concurrency = true;
+    blockReplace.set_concurrency(true);
+
     blockReplace.initialize_block_replace();
     do_step_deordering();
     write_eog_result();
 
     block_deorder_start();
     write_bd_result();
+
     plan_reduction();
+
     block_substitution_concurrency();
+
     plan_reduction();
     write_cibs_result();
+    write_log_file("Done\n");
 }
 
 void CIBS::plan_reduction() {
-    blockDeorderPlan = planReduction.start(blockDeorderPlan);
+    if (planReduction.type != NOREDUCTION)
+        blockDeorderPlan = planReduction.start(blockDeorderPlan);
 }
 
 void CIBS :: block_substitution_concurrency(){
@@ -44,18 +51,18 @@ void CIBS :: block_substitution_concurrency(){
         for(auto relation : blockDeorderPlan.concurrent_orderings.orderings){
             int b_x = relation.first.first;
             int b_y = relation.first.second;
-            bdpop = blockDeorderPlan;
+            blockReplace.bdpop = blockDeorderPlan;
             if(blockReplace.remove_nonconcurrency(b_x, b_y)){
                 cout << "\n**new block has been replaced for nonconcurrency**" << endl;
                 cout<< "!# action:" << b_x << " " << b_y <<endl;
-                bdpop = blockDeorderPlan;
+                blockDeorderPlan = blockReplace.bdpop;
                 return true;
             }
-            bdpop = blockDeorderPlan;
+            blockReplace.bdpop = blockDeorderPlan;
             if(blockReplace.remove_nonconcurrency(b_y,b_x)){
                 cout << "\n**new block has been replaced for nonconcurrency**" << endl;
                 cout<< "!# action:" << b_y << " " << b_x <<endl;
-                bdpop = blockDeorderPlan;
+                blockDeorderPlan = blockReplace.bdpop;
                 return true;
             }
 
@@ -63,9 +70,9 @@ void CIBS :: block_substitution_concurrency(){
         if(print_details){
             blockDeorderPlan.print_blocks_orderings();
             blockDeorderPlan.print_outer_blocks();
-            cout << "********* no more block replacement possible.************\n";
             return false;
         }
+        write_log_file( "********* no more block replacement possible.************\n");
         return false;
     };
     bool new_replacement_found = true;
