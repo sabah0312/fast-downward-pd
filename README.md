@@ -87,7 +87,7 @@ CIBS also allows plan reduction
 ```bash
 ./fast-downward-pd.py ./tests/rovers/domain-15.pddl ./tests/rovers/instance-15.pddl ./tests/rovers/sas_plan.1.lama --decompose 'cibs()'
 ```
-For IPC benchmark problems and solutions, see [https://github.com/sabah0312/IPC-Solutions](IPC_Solutions)
+For IPC benchmark problems and solutions, see [IPC_Solutions](https://github.com/sabah0312/IPC-Solutions)
 ## Compilation
 
 To build, from the top-level directory, run:
@@ -114,7 +114,6 @@ DeorderAlgorithm (deorder_algorithm.h)
 ## 📄 Publications and References
 This project is based on and extends work published in the following papers:
 
-
 Noor, S. B., & Siddiqui, F. H. (2025). Improving plan execution flexibility using block substitution. In Proceedings of the International Conference on Autonomous Agents and Multi-Agent Systems (AAMAS).
 
 Noor, S. B., & Siddiqui, F. H. (2024a). Improving execution concurrency in partial‑order plans via block‑substitution. arXiv preprint, arXiv:2406.18615.
@@ -125,3 +124,14 @@ Siddiqui, F. H., & Haslum, P. (2012). Block-structured plan deordering. In AI 20
 
 Kambhampati, S., & Kedar, S. (1994). A unified framework for explanation-based generalization of partially ordered and partially instantiated plans. Artificial Intelligence, 67(1), 29–70. https://doi.org/10.1016/0004-3702(94)90011-6
 
+# Note on Compatibility
+All core functionalities of Fast Downward are fully supported. The only change is to use `fast-downward-pd.py` instead of `fast-downward.py`.
+
+This script serves as a wrapper around the original Fast Downward pipeline, adding support for additional modules for the `decompose` module.
+
+For standard planning tasks, usage remains the same, except for the script name:
+
+```bash
+./fast-downward-pd.py <domain.pddl> <problem.pddl> --search "astar(blind())"
+```
+To learn more about fast-downward, see [FASTDOWNWARD.md](FASTDOWNWARD.md)
