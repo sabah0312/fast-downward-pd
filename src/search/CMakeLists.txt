@@ -56,6 +56,7 @@ add_executable(downward planner.cc
         ../decompose/deorder_algorithms/cibs.cc
         ../decompose/deorder_algorithms/cibs.h
         ../decompose/deorder_algorithms/plugin_cibs.cc
+        ../decompose/deorder_algorithms/plugin_decompose.cc
 )
 
 # On Windows we have to copy all DLLs next to the generated binary.

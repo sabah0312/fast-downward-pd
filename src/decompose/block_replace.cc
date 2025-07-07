@@ -786,6 +786,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
 //        cout<<"here";
         write_log_file("\tmaking a new block from a bdpop");
         int block_id = newPlan.get_new_block_id();
+//        write_log_file("\t" + to_string(plan.size()));
         if (plan.size() == 1) {              /// if primitive block
             write_log_file("\tprimitive plan");
             OperatorProxy operatorProxy = bdpop.task_proxy.get_operators()[plan[0]];
@@ -799,9 +800,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
             return internal;
 
         } else {                        /// if compound block
-            cout << "here";
-//        write_log_file( "\tcompound plan");
-
+            write_log_file( "\tcompound plan");
             block_deorder.reset_plan(plan);
             BlockDeorderPlan *newDplan = &block_deorder.blockDeorderPlan;
             int goal_id = newDplan->get_new_block_id();
@@ -815,7 +814,7 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
 
 
             block_deorder.do_step_deordering();
-//            write_log_file("\tcompound plan");
+//            write_log_file("\there");
 
             Block block(block_id, vector<int>(0), false);
             Block *parent = newPlan.insert(block);

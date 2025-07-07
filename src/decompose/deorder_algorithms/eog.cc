@@ -13,8 +13,6 @@ void EOG :: do_step_deordering(){
     find_cds_and_dps();
     cout<< "--------------------------------Finished step-wise deordering ----------------------------------------------"<< endl << endl;
     blockDeorderPlan.find_transitive_ordering();
-    write_eog_result();
-
     cout<<"finding transitive ordering done" << endl;
 
 }

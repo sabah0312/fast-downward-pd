@@ -30,6 +30,7 @@ namespace block_replace {
         StateRegistry state_registry;
         std::vector<std::unique_ptr<domain_transition_graph::DomainTransitionGraph>> transition_graphs;
 
+//        string planner_path = "../../../fast-downward-pd.py --alias seq-sat-lama-2011";
         string planner_path = "./fast-downward-pd.py --alias seq-sat-lama-2011";
 
         string domain_file_path, problem_file_path;
