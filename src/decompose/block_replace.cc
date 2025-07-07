@@ -339,7 +339,6 @@ namespace block_replace {
         if (!bdpop[b_y]->is_primary()) {
             connected.at(b_x) = 1;
             return replace_block_by_block_to_remove_ordering(b_y, b_x, b_y, s, constraints, &connected);
-            return false;
         } else if (!only_replace_block) {
             return replace_block_by_operators_to_remove_ordering(b_y, b_x, b_y, s, constraints, &connected);
         }
@@ -783,9 +782,10 @@ bool BlockReplace :: replace_block_by_block_for_nonconcurrency(int b_x, int b_y)
     Block *BlockReplace::make_block(Plan plan, BlockDeorderPlan &newPlan, vector<FactProxy> goals) {
 //    cout << "here";
 //    if(1)
-//        cout<<"here";
+        cout<<"here2223";
         write_log_file("\tmaking a new block from a bdpop");
         int block_id = newPlan.get_new_block_id();
+        cout<<"here";
 //        write_log_file("\t" + to_string(plan.size()));
         if (plan.size() == 1) {              /// if primitive block
             write_log_file("\tprimitive plan");
