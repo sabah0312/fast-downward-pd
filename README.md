@@ -87,7 +87,7 @@ CIBS also allows plan reduction
 ```bash
 ./fast-downward-pd.py ./tests/rovers/domain-15.pddl ./tests/rovers/instance-15.pddl ./tests/rovers/sas_plan.1.lama --decompose 'cibs()'
 ```
-For IPC benchmark problems and solutions, see [IPC_Solutions](https://github.com/sabah0312/IPC-Solutions)
+For more IPC benchmark problems and solutions, see [IPC_Solutions](https://github.com/sabah0312/IPC-Solutions)
 ## Compilation
 
 To build, from the top-level directory, run:
