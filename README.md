@@ -93,7 +93,7 @@ For more IPC benchmark problems and solutions, see [IPC_Solutions](https://githu
 ### Mandatory Dependencies
 
 **Linux/MacOS:** you need a C++ compiler, CMake and GNU make.
-  To run the planner, you also need Python 3.
+  To run the system, you also need Python 3.
 
   On Debian/Ubuntu, the following should install all these dependencies:
   ```
