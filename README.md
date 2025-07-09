@@ -88,6 +88,24 @@ CIBS also allows plan reduction
 ./fast-downward-pd.py ./tests/rovers/domain-15.pddl ./tests/rovers/instance-15.pddl ./tests/rovers/sas_plan.1.lama --decompose 'cibs()'
 ```
 For more IPC benchmark problems and solutions, see [IPC_Solutions](https://github.com/sabah0312/IPC-Solutions)
+
+## Dependencies
+### Mandatory Dependencies
+
+**Linux/MacOS:** you need a C++ compiler, CMake and GNU make.
+  To run the planner, you also need Python 3.
+
+  On Debian/Ubuntu, the following should install all these dependencies:
+  ```
+  sudo apt install cmake g++ make python3
+  ```
+
+**Windows:** install [Visual Studio >= 2017](https://visualstudio.microsoft.com/de/vs/older-downloads/),
+[Python](https://www.python.org/downloads/windows/), and [CMake](http://www.cmake.org/download/).
+During the installation of Visual Studio, the C++ compiler is not installed by default, but the IDE prompts you to install it when you create a new C++ project.
+
+For more options and information, see [BUILD.md](BUILD.md).
+
 ## Compilation
 
 To build, from the top-level directory, run:
