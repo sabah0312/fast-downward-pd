@@ -110,7 +110,7 @@ string ClusterCausalGraph :: print_variable_cluster(int id){
 }
 
 int ClusterCausalGraph:: make_new_cluster(vector<int> variables){
-    VariableCluster variableCluster(next_id, regular);
+    VariableCluster variableCluster(next_id, regular1);
     pair<int, VariableCluster> p(next_id, variableCluster);
     clusters.insert(p);
     int id = variableCluster.get_id();
