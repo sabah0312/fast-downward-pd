@@ -10,7 +10,7 @@
 
 using namespace std;
 
-enum cluster_type  {agent, regular};
+enum cluster_type  {agent, regular1};
 class VariableCluster {
     int id;
     vector<int> ground_variables;
